@@ -1,7 +1,8 @@
 get_tmux_option() {
 	local option="$1"
 	local default_value="$2"
-	local option_value="$(tmux show-option -gqv "$option")"
+	local option_value_unexpanded="$(tmux show-option -gqv "$option")"
+  local option_value="$(tmux display -p "$option_value_unexpanded")"
 	if [ -z "$option_value" ]; then
 		echo "$default_value"
 	else
